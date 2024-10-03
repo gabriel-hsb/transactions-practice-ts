@@ -1,0 +1,1 @@
+{"version":3,"file":"convertToCurrency.js","sourceRoot":"","sources":["../src/convertToCurrency.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,UAAU,iBAAiB,CAAC,KAAa;IACrD,OAAO,IAAI,IAAI,CAAC,YAAY,CAAC,OAAO,EAAE;QACpC,KAAK,EAAE,UAAU;QACjB,QAAQ,EAAE,KAAK;KAChB,CAAC,CAAC,MAAM,CAAC,KAAK,CAAC,CAAA;AAClB,CAAC"}

@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "module": "esnext",
     "sourceMap": true,
     "allowJs": true,
     "removeComments": true,
     "strict": true,
     "noImplicitReturns": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "typeRoots": ["./@types"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]
