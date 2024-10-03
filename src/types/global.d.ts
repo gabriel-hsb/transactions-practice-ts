@@ -10,6 +10,7 @@ interface Transaction {
 }
 
 type TransactionStatus =
-  | "Recusada pela operadora de cartão"
   | "Aguardando pagamento"
+  | "Estornada"
   | "Paga"
+  | "Recusada pela operadora de cartão"
