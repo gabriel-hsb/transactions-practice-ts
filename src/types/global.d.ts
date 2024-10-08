@@ -17,6 +17,7 @@ interface refinedTransaction {
   paymentMethod: "Cartão de Crédito" | "Boleto"
   email: string
   valueBRL: string
+  valueNumber: number
   newClient: boolean
 }
 

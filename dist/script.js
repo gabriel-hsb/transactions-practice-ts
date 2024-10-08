@@ -3,6 +3,7 @@ import transactionTypes from "./transactionTypes.js";
 import transactionsStatuses from "./transacationsStatuses.js";
 import stringToDate from "./stringToDate.js";
 import convertToCurrency from "./convertToCurrency.js";
+import convertToNumber from "./convertToNumber.js";
 async function fetchData() {
     const URL = "https://api.origamid.dev/json/transacoes.json";
     try {
@@ -24,6 +25,7 @@ const refinedTransactions = transactions.map((transaction) => {
         paymentMethod: transaction["Forma de Pagamento"],
         email: transaction.Email,
         valueBRL: convertToCurrency(transaction["Valor (R$)"]),
+        valueNumber: convertToNumber(transaction["Valor (R$)"]),
         newClient: transaction["Cliente novo"],
     };
 });
@@ -38,7 +40,8 @@ function showTransactionData() {
     if (transactionDiv) {
         const foo = transactionsStatuses(transactions);
         transactionDiv.innerHTML += `
-      <b>Total:</b> ${totalValue(transactions).transactionsTotalBRL}
+      <b>Total faturado:</b> ${totalValue(refinedTransactions).transactionsTotalBRL} <br>
+      <b>Total estornado:</b> ${totalValue(refinedTransactions).refundedTotalBRL}
       <hr>
       <b>Pagas:</b> ${foo.Paga} </br>
       <b>Aguardando pagamento:</b> ${foo["Aguardando pagamento"]} </br>

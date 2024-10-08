@@ -3,6 +3,7 @@ import transactionTypes from "./transactionTypes.js"
 import transactionsStatuses from "./transacationsStatuses.js"
 import stringToDate from "./stringToDate.js"
 import convertToCurrency from "./convertToCurrency.js"
+import convertToNumber from "./convertToNumber.js"
 
 //@ts-ignoreignore-ts
 async function fetchData() {
@@ -28,6 +29,7 @@ const refinedTransactions: refinedTransaction[] = transactions.map(
       paymentMethod: transaction["Forma de Pagamento"],
       email: transaction.Email,
       valueBRL: convertToCurrency(transaction["Valor (R$)"]),
+      valueNumber: convertToNumber(transaction["Valor (R$)"]),
       newClient: transaction["Cliente novo"],
     }
   }
@@ -35,6 +37,8 @@ const refinedTransactions: refinedTransaction[] = transactions.map(
 
 showTransactionData()
 showTransactionTable()
+
+
 
 function showTransactionData(): void {
   const transactionDiv = document.querySelector("#transactionData")
@@ -46,7 +50,8 @@ function showTransactionData(): void {
     const foo = transactionsStatuses(transactions)
 
     transactionDiv.innerHTML += `
-      <b>Total:</b> ${totalValue(transactions).transactionsTotalBRL}
+      <b>Total faturado:</b> ${totalValue(refinedTransactions).transactionsTotalBRL} <br>
+      <b>Total estornado:</b> ${totalValue(refinedTransactions).refundedTotalBRL}
       <hr>
       <b>Pagas:</b> ${foo.Paga} </br>
       <b>Aguardando pagamento:</b> ${foo["Aguardando pagamento"]} </br>
@@ -77,7 +82,7 @@ async function showTransactionTable(): Promise<void> {
       <tr>
         <td>${transaction.name}</td>
         <td>${transaction.email}</td>
-        <td>${transaction.valueBRL}</td>
+        <td>${transaction.valueBRL /*TODO: fix NaN */}</td>
         <td>${transaction.paymentMethod}</td>
         <td>${transaction.status}</td>
       </tr>  

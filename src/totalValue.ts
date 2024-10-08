@@ -1,5 +1,4 @@
 import convertToCurrency from "./convertToCurrency.js"
-import convertToNumber from "./convertToNumber.js"
 
 interface TotalValueI {
   transactionsTotal: number
@@ -8,12 +7,12 @@ interface TotalValueI {
   refundedTotalBRL: string
 }
 
-export default function totalValue(transactions: Transaction[]): TotalValueI {
+export default function totalValue(transactions: refinedTransaction[]): TotalValueI {
   let positiveTransactions: number[] = []
   let negativeTransactions: number[] = []
 
   transactions.forEach((transaction) => {
-    const currentValue = convertToNumber(transaction["Valor (R$)"])
+    const currentValue = transaction.valueNumber
 
     if (currentValue >= 0) {
       positiveTransactions.push(currentValue)

@@ -1,10 +1,9 @@
 import convertToCurrency from "./convertToCurrency.js";
-import convertToNumber from "./convertToNumber.js";
 export default function totalValue(transactions) {
     let positiveTransactions = [];
     let negativeTransactions = [];
     transactions.forEach((transaction) => {
-        const currentValue = convertToNumber(transaction["Valor (R$)"]);
+        const currentValue = transaction.valueNumber;
         if (currentValue >= 0) {
             positiveTransactions.push(currentValue);
         }
