@@ -1,6 +1,14 @@
-export default function convertToCurrency(value: number): string {
+export default function convertToCurrency(value: number | string): string {
+  let cleanedValue: string | number
+  if (typeof value === "string") {
+    cleanedValue = value.replace(/\./g, "").replace(",", ".")
+    cleanedValue = parseFloat(cleanedValue)
+  } else {
+    cleanedValue = value
+  }
+
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
-  }).format(value)
+  }).format(cleanedValue)
 }

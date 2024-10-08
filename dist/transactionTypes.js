@@ -1,8 +1,8 @@
 export default function transactionTypes(transactions) {
-    var creditCardTransactions = transactions.filter(function (value) {
+    const creditCardTransactions = transactions.filter((value) => {
         return value["Forma de Pagamento"] === "Cartão de Crédito";
     });
-    var ticketTransactions = transactions.filter(function (value) {
+    const ticketTransactions = transactions.filter((value) => {
         return value["Forma de Pagamento"] === "Boleto";
     });
     return {

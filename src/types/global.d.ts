@@ -6,7 +6,18 @@ interface Transaction {
   "Forma de Pagamento": "Cartão de Crédito" | "Boleto"
   Email: string
   "Valor (R$)": string
-  "Cliente novo": 1 | 0
+  "Cliente novo": boolean
+}
+
+interface refinedTransaction {
+  status: TransactionStatus
+  id: number
+  date: Date
+  name: string
+  paymentMethod: "Cartão de Crédito" | "Boleto"
+  email: string
+  valueBRL: string
+  newClient: boolean
 }
 
 type TransactionStatus =

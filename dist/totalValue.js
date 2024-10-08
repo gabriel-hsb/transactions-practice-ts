@@ -1,10 +1,10 @@
 import convertToCurrency from "./convertToCurrency.js";
 import convertToNumber from "./convertToNumber.js";
 export default function totalValue(transactions) {
-    var positiveTransactions = [];
-    var negativeTransactions = [];
-    transactions.forEach(function (transaction) {
-        var currentValue = convertToNumber(transaction["Valor (R$)"]);
+    let positiveTransactions = [];
+    let negativeTransactions = [];
+    transactions.forEach((transaction) => {
+        const currentValue = convertToNumber(transaction["Valor (R$)"]);
         if (currentValue >= 0) {
             positiveTransactions.push(currentValue);
         }
@@ -12,21 +12,21 @@ export default function totalValue(transactions) {
             negativeTransactions.push(currentValue);
         }
     });
-    var positiveTotal = positiveTransactions.reduce(function (acc, cur) {
+    const positiveTotal = positiveTransactions.reduce((acc, cur) => {
         return cur + acc;
     }, 0);
-    var negativeTotal = negativeTransactions.reduce(function (acc, cur) {
+    const negativeTotal = negativeTransactions.reduce((acc, cur) => {
         return cur + acc;
     }, 0);
-    var refundedTotal = Math.abs(negativeTotal);
-    var transactionsTotal = positiveTotal - Math.abs(negativeTotal);
-    var transactionsTotalBRL = convertToCurrency(transactionsTotal);
-    var refundedTotalBRL = convertToCurrency(refundedTotal);
+    const refundedTotal = Math.abs(negativeTotal);
+    const transactionsTotal = positiveTotal - Math.abs(negativeTotal);
+    const transactionsTotalBRL = convertToCurrency(transactionsTotal);
+    const refundedTotalBRL = convertToCurrency(refundedTotal);
     return {
-        transactionsTotal: transactionsTotal,
-        refundedTotal: refundedTotal,
-        transactionsTotalBRL: transactionsTotalBRL,
-        refundedTotalBRL: refundedTotalBRL,
+        transactionsTotal,
+        refundedTotal,
+        transactionsTotalBRL,
+        refundedTotalBRL,
     };
 }
 //# sourceMappingURL=totalValue.js.map

@@ -1,6 +1,13 @@
+interface teste {
+  "Recusada pela operadora de cartão": number
+  "Aguardando pagamento": number
+  Paga: number
+  Estornada: number
+}
+
 export default function transactionsStatuses(
   transactions: Transaction[]
-): Object {
+): teste {
   const transactionStatuses: TransactionStatus[] = [
     "Recusada pela operadora de cartão",
     "Aguardando pagamento",
@@ -19,5 +26,11 @@ export default function transactionsStatuses(
 
     statusResults[status] = filteredTransactions.length
   }
-  return statusResults
+  return {
+    "Recusada pela operadora de cartão":
+      statusResults["Recusada pela operadora de cartão"],
+    "Aguardando pagamento": statusResults["Aguardando pagamento"],
+    Paga: statusResults["Paga"],
+    Estornada: statusResults["Estornada"],
+  }
 }

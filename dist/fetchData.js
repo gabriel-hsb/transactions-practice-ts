@@ -34,25 +34,28 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-export default function fetchData(URL) {
+export default function fetchData(url) {
     return __awaiter(this, void 0, void 0, function () {
-        var res, json, _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var response, json, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 4, , 5]);
-                    return [4, fetch(URL)];
+                    _a.trys.push([0, 3, , 4]);
+                    return [4, fetch(url)];
                 case 1:
-                    res = _b.sent();
-                    return [4, res.json()];
+                    response = _a.sent();
+                    if (!response.ok)
+                        throw new Error("Erro: " + response.status);
+                    return [4, response.json()];
                 case 2:
-                    json = _b.sent();
-                    return [4, json];
-                case 3: return [2, _b.sent()];
-                case 4:
-                    _a = _b.sent();
-                    throw new Error("Erro");
-                case 5: return [2];
+                    json = _a.sent();
+                    return [2, json];
+                case 3:
+                    error_1 = _a.sent();
+                    if (error_1 instanceof Error)
+                        console.error("fetchData: " + error_1.message);
+                    return [2, null];
+                case 4: return [2];
             }
         });
     });
