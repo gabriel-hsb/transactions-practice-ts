@@ -1,5 +1,8 @@
 export default function convertToCurrency(value) {
     let cleanedValue;
+    if (value === "-") {
+        return "<i>Estornada</i>";
+    }
     if (typeof value === "string") {
         cleanedValue = value.replace(/\./g, "").replace(",", ".");
         cleanedValue = parseFloat(cleanedValue);

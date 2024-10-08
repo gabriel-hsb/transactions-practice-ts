@@ -4,6 +4,7 @@ import transactionsStatuses from "./transacationsStatuses.js";
 import stringToDate from "./stringToDate.js";
 import convertToCurrency from "./convertToCurrency.js";
 import convertToNumber from "./convertToNumber.js";
+import mostFrequentDay from "./mostFrequentDay.js";
 async function fetchData() {
     const URL = "https://api.origamid.dev/json/transacoes.json";
     try {
@@ -16,11 +17,21 @@ async function fetchData() {
     }
 }
 const transactions = await fetchData();
+const daysOfTheWeek = [
+    "Domingo",
+    "Segunda-feira",
+    "Terça-feira",
+    "Quarta-feira",
+    "Quinta-feira",
+    "Sexta-feira",
+    "Sábado",
+];
 const refinedTransactions = transactions.map((transaction) => {
     return {
         status: transaction.Status,
         id: transaction.ID,
         date: stringToDate(transaction.Data),
+        weekDay: stringToDate(transaction.Data).getDay(),
         name: transaction.Nome,
         paymentMethod: transaction["Forma de Pagamento"],
         email: transaction.Email,
@@ -33,32 +44,30 @@ showTransactionData();
 showTransactionTable();
 function showTransactionData() {
     const transactionDiv = document.querySelector("#transactionData");
+    const bestDay = mostFrequentDay(refinedTransactions);
     if (!transactionDiv)
         return;
     if (refinedTransactions === undefined)
         return;
-    if (transactionDiv) {
-        const foo = transactionsStatuses(transactions);
-        transactionDiv.innerHTML += `
-      <b>Total faturado:</b> ${totalValue(refinedTransactions).transactionsTotalBRL} <br>
-      <b>Total estornado:</b> ${totalValue(refinedTransactions).refundedTotalBRL}
-      <hr>
-      <b>Pagas:</b> ${foo.Paga} </br>
-      <b>Aguardando pagamento:</b> ${foo["Aguardando pagamento"]} </br>
-      <b>Estornada:</b> ${foo["Estornada"]} </br>
-      <b>Recusada:</b> ${foo["Recusada pela operadora de cartão"]} </br>
-      <hr>
-      <b>Dia com mais vendas:</b> ??? </br>
-      <hr>
-      <b>Cartão de Crédito:</b> ${transactionTypes(transactions).creditCardTransactions}
-      <br>
-      <b>Boleto:</b> ${transactionTypes(transactions).ticketTransactions}
-      <hr>
-
-    `;
-    }
+    const foo = transactionsStatuses(transactions);
+    transactionDiv.innerHTML += `
+    <b>Total faturado:</b> ${totalValue(refinedTransactions).transactionsTotalBRL} <br>
+    <b>Total estornado:</b> ${totalValue(refinedTransactions).refundedTotalBRL}
+    <hr>
+    <b>Pagas:</b> ${foo.paid} </br>
+    <b>Aguardando pagamento:</b> ${foo.awaiting} </br>
+    <b>Estornada:</b> ${foo.refunded} </br>
+    <b>Recusada:</b> ${foo.denied} </br>
+    <hr>
+    <b>Dia com mais vendas:</b> ${bestDay[0]} </br>
+    <hr>
+    <b>Cartão de Crédito:</b> ${transactionTypes(transactions).creditCardTransactions}
+    <br>
+    <b>Boleto:</b> ${transactionTypes(transactions).ticketTransactions}
+    <hr>
+  `;
 }
-async function showTransactionTable() {
+function showTransactionTable() {
     const tbody = document.querySelector("#tbody");
     if (!tbody)
         return;
@@ -67,6 +76,7 @@ async function showTransactionTable() {
     refinedTransactions.forEach((transaction) => {
         tbody.innerHTML += `
       <tr>
+        <td>${daysOfTheWeek[transaction.weekDay]}</td>
         <td>${transaction.name}</td>
         <td>${transaction.email}</td>
         <td>${transaction.valueBRL}</td>

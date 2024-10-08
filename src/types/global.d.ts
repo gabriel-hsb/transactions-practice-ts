@@ -13,6 +13,7 @@ interface refinedTransaction {
   status: TransactionStatus
   id: number
   date: Date
+  weekDay: number
   name: string
   paymentMethod: "Cartão de Crédito" | "Boleto"
   email: string

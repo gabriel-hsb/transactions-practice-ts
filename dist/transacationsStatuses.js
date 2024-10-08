@@ -13,10 +13,10 @@ export default function transactionsStatuses(transactions) {
         statusResults[status] = filteredTransactions.length;
     }
     return {
-        "Recusada pela operadora de cartão": statusResults["Recusada pela operadora de cartão"],
-        "Aguardando pagamento": statusResults["Aguardando pagamento"],
-        Paga: statusResults["Paga"],
-        Estornada: statusResults["Estornada"],
+        denied: statusResults["Recusada pela operadora de cartão"],
+        awaiting: statusResults["Aguardando pagamento"],
+        paid: statusResults["Paga"],
+        refunded: statusResults["Estornada"],
     };
 }
 //# sourceMappingURL=transacationsStatuses.js.map
