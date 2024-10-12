@@ -1,7 +1,7 @@
 export default function convertToCurrency(value) {
     let cleanedValue;
     if (value === "-") {
-        return "<i>Estornada</i>";
+        return "<i>---</i>";
     }
     if (typeof value === "string") {
         cleanedValue = value.replace(/\./g, "").replace(",", ".");
@@ -10,6 +10,8 @@ export default function convertToCurrency(value) {
     else {
         cleanedValue = value;
     }
+    if (cleanedValue < 0)
+        return "<i>Estornada</i>";
     return new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",

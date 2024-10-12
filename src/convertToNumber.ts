@@ -1,4 +1,4 @@
 export default function convertToNumber(value: string): number {
-    const cleanedValue = value.replace(/\./g, "").replace(",", ".")
-    return parseFloat(cleanedValue)
-  }
+  const cleanedValue = value.replaceAll(".", "").replace(",", ".")
+  return parseFloat(cleanedValue)
+}

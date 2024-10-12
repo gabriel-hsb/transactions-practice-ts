@@ -6,7 +6,6 @@ import convertToCurrency from "./convertToCurrency.js"
 import convertToNumber from "./convertToNumber.js"
 import mostFrequentDay from "./mostFrequentDay.js"
 
-//@ts-ignoreignore-ts
 async function fetchData() {
   const URL = "https://api.origamid.dev/json/transacoes.json"
   try {
